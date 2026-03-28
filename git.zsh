@@ -15,6 +15,66 @@ sapply() { git stash apply stash^{/$*}; }
 # Update all git submodules to latest remote
 gsubup() { git submodule update --remote --merge; }
 
+# Worktree aliases
+alias gwl='git worktree list'
+alias gwa='git worktree add'
+alias gwr='git worktree remove'
+alias gwp='git worktree prune'
+
+# Create worktree + branch in a sibling folder
+# Usage: gwb feature-a          (from main)
+#        gwb feature-b feature-a (from a different base)
+gwb() {
+  if [[ -z "$1" ]]; then echo "usage: gwb <branch> [base]"; return 1; fi
+  local branch=$1
+  local base=${2:-main}
+  local main_root=$(git worktree list --porcelain | head -1 | sed 's/^worktree //')
+  local repo_name=$(basename "$main_root")
+  local parent=$(dirname "$main_root")
+  local worktree_dir="$parent/${repo_name}-${branch}"
+  git worktree add -b "$branch" "$worktree_dir" "$base" && cd "$worktree_dir"
+  echo "Created: $worktree_dir (base: $base)"
+}
+
+# Remove worktree — run from inside it (no args), or pass branch name from main repo
+gwrm() {
+  local main_root=$(git worktree list --porcelain | head -1 | sed 's/^worktree //')
+
+  if [[ -n "$1" ]]; then
+    local branch=$1
+    local repo_name=$(basename "$main_root")
+    local parent=$(dirname "$main_root")
+    local worktree_dir="$parent/${repo_name}-${branch}"
+    git worktree remove "$worktree_dir"
+    cd "$main_root" && git pull
+    git branch -d "$branch" 2>/dev/null && echo "Removed worktree + branch: $branch" || echo "Removed worktree: $branch (branch kept — not fully merged)"
+  elif [[ "$(git rev-parse --show-toplevel)" != "$main_root" ]]; then
+    local worktree_dir=$(git rev-parse --show-toplevel)
+    local branch=$(git branch --show-current)
+    cd "$main_root"
+    git worktree remove "$worktree_dir" && git pull
+    git branch -d "$branch" 2>/dev/null && echo "Removed worktree + branch: $branch" || echo "Removed worktree: $branch (branch kept — not fully merged)"
+  else
+    echo "usage: gwrm <branch> (or run from within the worktree)"
+    return 1
+  fi
+}
+
+# Checkout a PR into its own worktree for review
+gwpr() {
+  if [[ -z "$1" ]]; then echo "usage: gwpr <pr-number>"; return 1; fi
+  local pr=$1
+  local main_root=$(git worktree list --porcelain | head -1 | sed 's/^worktree //')
+  local repo_name=$(basename "$main_root")
+  local parent=$(dirname "$main_root")
+  local worktree_dir="$parent/${repo_name}-pr-${pr}"
+  local branch=$(gh pr view "$pr" --json headRefName -q '.headRefName')
+  if [[ -z "$branch" ]]; then echo "Could not find PR #$pr"; return 1; fi
+  git fetch origin "$branch"
+  git worktree add "$worktree_dir" "origin/${branch}" && cd "$worktree_dir"
+  echo "PR #$pr checked out at: $worktree_dir"
+}
+
 # Delete local branches under a given prefix (e.g., backup/)
 function gbDA() {
   emulate -L zsh

@@ -8,13 +8,14 @@ Custom configurations for [oh-my-zsh](https://ohmyz.sh/). This folder lives at `
 ~/.oh-my-zsh/custom/
 ├── aliases.zsh          # General aliases
 ├── aws.zsh              # AWS helpers
+├── docker.zsh           # Docker aliases and cleanup
 ├── functions.zsh        # Utility functions
 ├── git.zsh              # Git aliases and functions
 ├── history.zsh          # Shell history settings
 ├── images.zsh           # Image conversion functions
+├── lazyenv.zsh          # Lazy loader for dev tools (zinit)
 ├── options.zsh          # Shell options and exports
 ├── private.zsh          # Loader for private/ folder
-├── utility.zsh          # Dev tool wrappers
 ├── private/             # Private configs (gitignored)
 ├── plugins/
 │   ├── zsh-autosuggestions/      (submodule)
@@ -36,7 +37,6 @@ Custom configurations for [oh-my-zsh](https://ohmyz.sh/). This folder lives at `
 | `bashconfig` | `subl ~/.bashrc` |
 | `ohmyzsh` | `subl ~/.oh-my-zsh` |
 | `awsconfig` | `subl ~/.aws` |
-| `us` | `source ~/.zshrc` |
 | `me` | `cd ~` |
 | `custom` | `cd ~/.oh-my-zsh/custom` |
 | `npm-global` | `npm -g ls --depth=0` |
@@ -44,6 +44,15 @@ Custom configurations for [oh-my-zsh](https://ohmyz.sh/). This folder lives at `
 | `shrug` | Copies `¯\_(ツ)_/¯` to clipboard |
 | `lenny` | Copies `( ͡° ͜ʖ ͡°)` to clipboard |
 | `wut` | Copies `ಠ_ಠ` to clipboard |
+
+#### Global pipe aliases
+
+| Alias | Description |
+|---|---|
+| `G` | Pipe to `grep -i` (e.g. `ps aux G docker`) |
+| `L` | Pipe to `less` |
+| `T` | Pipe to `tail -20` |
+| `NUL` | Redirect to `/dev/null 2>&1` |
 
 ---
 
@@ -62,6 +71,10 @@ Custom configurations for [oh-my-zsh](https://ohmyz.sh/). This folder lives at `
 | `gtl` | Show most recent tag |
 | `gbcd` | Switch to develop, pull, delete previous branch |
 | `gbcm` | Switch to main, pull, delete previous branch |
+| `gwl` | `git worktree list` |
+| `gwa` | `git worktree add` |
+| `gwr` | `git worktree remove` |
+| `gwp` | `git worktree prune` |
 
 #### Functions
 
@@ -69,10 +82,13 @@ Custom configurations for [oh-my-zsh](https://ohmyz.sh/). This folder lives at `
 |---|---|
 | `sshow <term>` | Show diff of a stash by name |
 | `sapply <term>` | Apply a stash by name |
+| `gsubup` | Update all git submodules to latest remote |
 | `gbDA <prefix>` | Delete local branches by prefix (e.g. `gbDA backup/`) |
 | `gpatch [base]` | Generate `.patch` file from current branch vs base |
 | `gpatchfiles [file]` | List files changed in a patch |
-| `gsubup` | Update all git submodules to latest remote |
+| `gwb <branch> [base]` | Create worktree + branch in sibling folder |
+| `gwrm [branch]` | Remove worktree and optionally delete branch |
+| `gwpr <pr-number>` | Checkout a PR into its own worktree for review |
 
 ---
 
@@ -80,6 +96,14 @@ Custom configurations for [oh-my-zsh](https://ohmyz.sh/). This folder lives at `
 
 | Function | Description |
 |---|---|
+| `extract <file>` | Universal decompressor (tar, zip, rar, gz, bz2, 7z) |
+| `zsh-time` | Benchmark shell startup time |
+| `mktouch <path>` | Create file with parent directories |
+| `pdfman <cmd>` | Open man page as PDF in Preview |
+| `folder-sizes` | Show sizes of subdirectories |
+| `tophistory` | Show 30 most used commands |
+| `man <cmd>` | Colorized man pages |
+| `aliases [keyword]` | Search aliases and functions by keyword |
 | `psg <term>` | Search processes by name |
 | `killport <port>` | Kill processes on a given port |
 | `hg <term>` | Search shell history |
@@ -91,18 +115,53 @@ Custom configurations for [oh-my-zsh](https://ohmyz.sh/). This folder lives at `
 
 ---
 
+### docker.zsh
+
+| Alias | Command |
+|---|---|
+| `dk` | `docker` |
+| `dkr` / `dkrr` / `dkrri` | `docker run` / `--rm` / `--rm -it` |
+| `dks` / `dkstop` / `dkrs` | `docker start` / `stop` / `restart` |
+| `dkrm` / `dkrmi` | `docker rm` / `rmi` |
+| `dkps` / `dkpsa` | `docker ps` / `ps -a` |
+| `dke` / `dkei` | `docker exec` / `exec -it` |
+| `dkl` / `dklf` | `docker logs` / `logs -f` |
+| `dki` / `dktop` | `docker inspect` / `top` |
+| `dkims` / `dkp` | `docker images` / `pull` |
+| `containerclean` | Remove all stopped containers |
+| `imageclean` | Remove dangling images |
+
+---
+
 ### images.zsh
 
 | Function | Description |
 |---|---|
-| `webptopng <name>` | `.webp` → `.png` |
-| `pngtowebp <name>` | `.png` → `.webp` |
-| `jpgtowebp <name>` | `.jpg` → `.webp` |
-| `heictojpg <name>` | `.heic` → `.jpg` |
-| `heictopng <name>` | `.heic` → `.png` |
-| `pngtojpg <name>` | `.png` → `.jpg` |
+| `webptopng <name>` | `.webp` -> `.png` |
+| `pngtowebp <name>` | `.png` -> `.webp` |
+| `jpgtowebp <name>` | `.jpg` -> `.webp` |
+| `heictojpg <name>` | `.heic` -> `.jpg` |
+| `heictopng <name>` | `.heic` -> `.png` |
+| `pngtojpg <name>` | `.png` -> `.jpg` |
 | `jpgfy` | Convert all `.HEIC` in current directory to `.jpg` |
 | `rmpng` | Remove all `.png` from current directory (with confirmation) |
+
+---
+
+### lazyenv.zsh
+
+Lazy environment loader that defers slow tool initialization to ~2 seconds after prompt using [zinit](https://github.com/zdharma-continuum/zinit). Significantly reduces shell startup time.
+
+| Tool | Method |
+|---|---|
+| nvm | `lazyenv-add` (with macOS brew detection) |
+| pyenv + virtualenv | `lazyenv-add` |
+| direnv | `lazyfn-add` |
+| kubectl | `lazyfn-add` |
+| brew completions | `lazyfn-add` |
+| gvm | zinit direct eval |
+| sdkman | zinit direct eval |
+| gcloud | zinit direct eval |
 
 ---
 
@@ -124,6 +183,9 @@ Also disables SAM CLI telemetry.
 | `HISTSIZE` / `SAVEHIST` | `10000` |
 | `sharehistory` | Share history across sessions |
 | `extendedhistory` | Save timestamps in history entries |
+| `hist_ignore_dups` | Skip duplicate entries |
+| `hist_ignore_space` | Commands prefixed with space are not saved |
+| `inc_append_history` | Add commands as they run, not on exit |
 
 ---
 
@@ -132,15 +194,15 @@ Also disables SAM CLI telemetry.
 | Setting | Value |
 |---|---|
 | `auto_cd` | Navigate to directories without typing `cd` |
+| `auto_menu` | Cycle through completions on repeated Tab |
+| `always_to_end` | Move cursor to end after completion |
+| `complete_in_word` | Tab-complete from the middle of a word |
+| `COMPLETE_ALIASES` | Make aliases eligible for completion |
+| `noflowcontrol` | Disable flow control (ctrl-s/ctrl-q) |
 | `VISUAL` / `EDITOR` | `vim` |
 | `ZSH_HIGHLIGHT_MAXLENGTH` | `60` |
 | `SPACESHIP_GCLOUD_SHOW` | `false` |
-
----
-
-### utility.zsh
-
-Dev tool wrappers for `nx` and `make`.
+| `HOMEBREW_NO_AUTO_UPDATE` | `1` |
 
 ---
 
@@ -169,32 +231,14 @@ The `private/` folder is gitignored and meant for personal configuration that sh
 
 ### Using a separate repo for your private config
 
-You can keep your private configuration in its own git repository and add it as a submodule:
+You can keep your private configuration in its own git repository and clone it directly:
 
 ```bash
-cd ~/.oh-my-zsh/custom
-
-# Add your private repo as a submodule
-git submodule add git@github.com:youruser/ohmyzsh-private.git private
-
-# Initialize and pull the contents
-git submodule update --init --recursive
-```
-
-Since `private/` is in `.gitignore`, the submodule reference in `.gitmodules` won't be tracked by this public repo. Your private config stays in its own repository, and `private.zsh` will source all `*.zsh` files from it automatically.
-
-To clone everything on a new machine:
-
-```bash
-# 1. Clone the public repo
-git clone --recurse-submodules git@github.com:youruser/ohmyzsh-custom-public.git ~/.oh-my-zsh/custom
-
-# 2. Add the private repo
 cd ~/.oh-my-zsh/custom
 git clone git@github.com:youruser/ohmyzsh-private.git private
 ```
 
-> **Note:** Since `private/` is gitignored, using `git submodule add` will be blocked by git. Simply `git clone` your private repo directly into the `private/` folder instead. It will function as an independent repository.
+Since `private/` is in `.gitignore`, the two repositories remain completely independent. `private.zsh` will source all `*.zsh` files from it automatically.
 
 ---
 
@@ -211,4 +255,12 @@ git clone --recurse-submodules git@github.com:youruser/ohmyzsh-custom-public.git
 # 3. If you forgot --recurse-submodules
 cd ~/.oh-my-zsh/custom
 git submodule update --init --recursive
+
+# 4. Install zinit (for lazy loading)
+ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
+mkdir -p "$(dirname $ZINIT_HOME)"
+git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
+
+# 5. Add private config (optional)
+git clone git@github.com:youruser/ohmyzsh-private.git private
 ```
