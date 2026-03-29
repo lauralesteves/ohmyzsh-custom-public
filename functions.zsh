@@ -152,3 +152,8 @@ man() {
       LESS_TERMCAP_us=$'\E[04;38;5;146m' \
       man "$@"
 }
+
+# Colors
+showcolors() {
+  for i in {0..255}; do print -Pn "%K{$i}  %k%F{$i}${(l:3::0:)i}%f " ${${(M)$((i%6)):#3}:+$'\n'}; done
+}
