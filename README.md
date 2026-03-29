@@ -16,6 +16,7 @@ Custom configurations for [oh-my-zsh](https://ohmyz.sh/). This folder lives at `
 ├── lazyenv.zsh          # Lazy loader for dev tools (zinit)
 ├── options.zsh          # Shell options and exports
 ├── private.zsh          # Loader for private/ folder
+├── theme.zsh            # Spaceship theme configuration
 ├── private/             # Private configs (gitignored)
 ├── plugins/
 │   ├── zsh-autosuggestions/      (submodule)
@@ -112,6 +113,7 @@ Custom configurations for [oh-my-zsh](https://ohmyz.sh/). This folder lives at `
 | `r <term>` | Recursive grep in current directory |
 | `delete_node_modules_recursive` | Remove all `node_modules/` recursively |
 | `desgpt` | Replace ` — ` with `; ` in `.md` files |
+| `showcolors` | Display all 256 terminal colors |
 
 ---
 
@@ -162,6 +164,7 @@ Lazy environment loader that defers slow tool initialization to ~2 seconds after
 | gvm | zinit direct eval |
 | sdkman | zinit direct eval |
 | gcloud | zinit direct eval |
+| bun | zinit direct eval |
 
 ---
 
@@ -202,7 +205,31 @@ Also disables SAM CLI telemetry.
 | `VISUAL` / `EDITOR` | `vim` |
 | `ZSH_HIGHLIGHT_MAXLENGTH` | `60` |
 | `SPACESHIP_GCLOUD_SHOW` | `false` |
+| `SPACESHIP_PROMPT_ORDER` | `dir git node exec_time line_sep char` |
+| `SPACESHIP_RPROMPT_ORDER` | `exit_code` |
 | `HOMEBREW_NO_AUTO_UPDATE` | `1` |
+
+---
+
+### theme.zsh
+
+Spaceship prompt theme configuration with custom sections and styling.
+
+| Setting | Value |
+|---|---|
+| `ZSH_THEME` | `spaceship` |
+| `SPACESHIP_PROMPT_ASYNC` | `false` |
+| `SPACESHIP_PROMPT_ADD_NEWLINE` | `true` |
+| `SPACESHIP_BATTERY_SHOW` | `false` |
+| `SPACESHIP_DOCKER_SHOW` | `true` (cyan) |
+| `SPACESHIP_TIME_SHOW` | `true` (gray, 24h format) |
+| `SPACESHIP_DIR_TRUNC` | `5` (relative to repo root) |
+| `SPACESHIP_EXEC_TIME_ELAPSED` | `2s` |
+| `SPACESHIP_CHAR_SYMBOL` | `⚡` |
+
+Custom `spaceship_laura` section prepends `laura@` to the prompt.
+
+Prompt order: `time laura dir git node package golang docker venv exec_time line_sep char`
 
 ---
 
