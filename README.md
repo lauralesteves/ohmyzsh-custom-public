@@ -81,9 +81,10 @@ Custom configurations for [oh-my-zsh](https://ohmyz.sh/). This folder lives at `
 
 | Function | Description |
 |---|---|
-| `sshow <term>` | Show diff of a stash by name |
-| `sapply <term>` | Apply a stash by name |
+| `gstshow <term>` | Show diff of a stash by name |
+| `gstapply <term>` | Apply a stash by name |
 | `gsubup` | Update all git submodules to latest remote |
+| `gbcn` | Copy branch name to clipboard (strips flow prefixes) |
 | `gbDA <prefix>` | Delete local branches by prefix (e.g. `gbDA backup/`) |
 | `gpatch [base]` | Generate `.patch` file from current branch vs base |
 | `gpatchfiles [file]` | List files changed in a patch |
