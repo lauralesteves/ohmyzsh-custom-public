@@ -95,3 +95,8 @@ zinit light zdharma-continuum/null
 zinit ice wait"2" lucid id-as"gcloud" \
   eval'[[ -f "$HOME/google-cloud-sdk/path.zsh.inc" ]] && source "$HOME/google-cloud-sdk/path.zsh.inc"; [[ -f "$HOME/google-cloud-sdk/completion.zsh.inc" ]] && source "$HOME/google-cloud-sdk/completion.zsh.inc"'
 zinit light zdharma-continuum/null
+
+# Bun completions
+zinit ice wait"2" lucid id-as"bun-completions" \
+  eval'[[ -s "$HOME/.bun/_bun" ]] && source "$HOME/.bun/_bun"'
+zinit light zdharma-continuum/null
