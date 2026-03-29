@@ -9,8 +9,8 @@ alias gtl="git for-each-ref --sort=-creatordate --format '%(refname:short)' refs
 alias gbcd='branch=$(git branch --show-current) && gcd && gl && gbd "$branch"'
 alias gbcm='branch=$(git branch --show-current) && gcm && gl && gbd "$branch"'
 
-sshow() { git stash show stash^{/$*} -p; }
-sapply() { git stash apply stash^{/$*}; }
+gstshow() { git stash show stash^{/$*} -p; }
+gstapply() { git stash apply stash^{/$*}; }
 
 # Update all git submodules to latest remote
 gsubup() { git submodule update --remote --merge; }
