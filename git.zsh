@@ -15,6 +15,9 @@ gstapply() { git stash apply stash^{/$*}; }
 # Update all git submodules to latest remote
 gsubup() { git submodule update --remote --merge; }
 
+# Copy branch name to clipboard
+gcbn() { git branch --show-current | tr -d '\n' | pbcopy && echo "Copied: $(pbpaste)"; }
+
 # Worktree aliases
 alias gwl='git worktree list'
 alias gwa='git worktree add'
