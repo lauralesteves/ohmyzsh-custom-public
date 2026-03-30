@@ -17,6 +17,7 @@ alias -g NUL='> /dev/null 2>&1'
 # Node
 alias npm-global="npm -g ls --depth=0"
 alias npm-local="npm ls --depth=0"
+alias yanr="yarn"
 
 # Shortcuts to emoji
 alias shrug="echo -n '¯\_(ツ)_/¯' | pbcopy"
