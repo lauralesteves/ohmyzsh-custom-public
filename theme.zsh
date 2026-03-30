@@ -52,22 +52,3 @@ SPACESHIP_CHAR_SYMBOL="⚡"
 SPACESHIP_CHAR_SUFFIX=" "
 SPACESHIP_CHAR_COLOR_SUCCESS="green"
 SPACESHIP_CHAR_COLOR_FAILURE="red" # turns red on last command failure
-
-spaceship_laura() {
-	spaceship::section --color "129" "laura@"
-}
-
-SPACESHIP_PROMPT_ORDER=(
-  time          # Time stamps section
-  laura 		# me
-  dir           # Current directory section
-  git           # Git section (git_branch + git_status)
-  node          # Node.js section
-  package       # Node Package
-  golang        # Go section
-  docker        # Docker section
-  venv          # virtualenv section
-  exec_time		# Execution time
-  line_sep      # Line break
-  char          # Prompt character
-)
