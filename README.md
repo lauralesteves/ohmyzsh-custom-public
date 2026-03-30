@@ -228,9 +228,7 @@ Spaceship prompt theme configuration with custom sections and styling.
 | `SPACESHIP_EXEC_TIME_ELAPSED` | `2s` |
 | `SPACESHIP_CHAR_SYMBOL` | `⚡` |
 
-Custom `spaceship_laura` section prepends `laura@` to the prompt.
-
-Prompt order: `time laura dir git node package golang docker venv exec_time line_sep char`
+Custom sections and prompt order are defined in the private config.
 
 ---
 
