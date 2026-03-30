@@ -42,6 +42,7 @@ Custom configurations for [oh-my-zsh](https://ohmyz.sh/). This folder lives at `
 | `custom` | `cd ~/.oh-my-zsh/custom` |
 | `npm-global` | `npm -g ls --depth=0` |
 | `npm-local` | `npm ls --depth=0` |
+| `yanr` | `yarn` (typo-friendly) |
 | `shrug` | Copies `¯\_(ツ)_/¯` to clipboard |
 | `lenny` | Copies `( ͡° ͜ʖ ͡°)` to clipboard |
 | `wut` | Copies `ಠ_ಠ` to clipboard |
