@@ -1,5 +1,6 @@
 # Git aliases
 alias gti="git"
+alias gbm="git branch -m"
 alias gst.="git status ."
 alias gcqa="gco qa"
 alias gbD='git branch --delete --force'
