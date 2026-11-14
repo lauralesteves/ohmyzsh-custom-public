@@ -157,3 +157,12 @@ man() {
 showcolors() {
   for i in {0..255}; do print -Pn "%K{$i}  %k%F{$i}${(l:3::0:)i}%f " ${${(M)$((i%6)):#3}:+$'\n'}; done
 }
+
+# Make overwrite
+make() {
+  if [[ -f local.mk && $# -gt 0 ]]; then
+    command make -f local.mk "$@"
+  else
+    command make "$@"
+  fi
+}
