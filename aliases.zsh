@@ -4,6 +4,8 @@ alias bashconfig="subl ~/.bashrc"
 alias ohmyzsh="subl ~/.oh-my-zsh"
 alias awsconfig="subl ~/.aws"
 
+alias ll="ls -lgoh"
+
 # Folders
 alias me="cd ~"
 alias custom="cd ~/.oh-my-zsh/custom"
