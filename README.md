@@ -26,6 +26,7 @@ Custom configurations for [oh-my-zsh](https://ohmyz.sh/). This folder lives at `
 ├── theme.zsh            # Spaceship theme configuration
 ├── private/             # Private configs (gitignored)
 ├── plugins/
+│   ├── wakatime/                 (submodule)
 │   ├── zsh-autosuggestions/      (submodule)
 │   └── zsh-syntax-highlighting/  (submodule)
 └── themes/
@@ -246,6 +247,7 @@ Custom sections and prompt order are defined in the private config.
 
 | Plugin | Description |
 |---|---|
+| [wakatime](https://github.com/sobolevn/wakatime-zsh-plugin) | Sends terminal activity to WakaTime |
 | [zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions) | History-based suggestions |
 | [zsh-syntax-highlighting](https://github.com/zsh-users/zsh-syntax-highlighting) | Terminal syntax highlighting |
 
