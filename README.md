@@ -1,5 +1,12 @@
 # ohmyzsh-custom-public
 
+> **Wondering why anyone would spend this much time on a terminal?** 🤔
+> Fair question. I wrote a whole article about it: why the default oh-my-zsh setup is just the warm-up, and how this repo turns a pile of plugins into a fast, lazy-loaded, actually-yours shell. Pick your language and come judge my aliases:
+>
+> - 🇧🇷 [Customizando o oh-my-zsh de verdade](https://lauraesteves.com/programacao/customizando-o-oh-my-zsh-de-verdade/)
+> - 🇺🇸 [Customizing oh-my-zsh for real](https://lauraesteves.com/programming/customizing-oh-my-zsh-for-real/)
+> - 🇪🇸 [Personalizando oh-my-zsh de verdad](https://lauraesteves.com/programacion/personalizando-oh-my-zsh-de-verdad/)
+
 Custom configurations for [oh-my-zsh](https://ohmyz.sh/). This folder lives at `~/.oh-my-zsh/custom/` and all `*.zsh` files are automatically sourced in alphabetical order.
 
 ## Structure
