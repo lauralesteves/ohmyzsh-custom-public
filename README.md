@@ -217,7 +217,6 @@ Also disables SAM CLI telemetry.
 | `SPACESHIP_GCLOUD_SHOW` | `false` |
 | `SPACESHIP_PROMPT_ORDER` | `dir git node exec_time line_sep char` |
 | `SPACESHIP_RPROMPT_ORDER` | `exit_code` |
-| `HOMEBREW_NO_AUTO_UPDATE` | `1` |
 
 ---
 
