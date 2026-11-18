@@ -19,6 +19,12 @@ function hg() {
   history | grep "$1"
 }
 
+# Alias search (multiple words are OR'd): aliasg ws docker
+aliasg() {
+  local IFS='|'
+  alias | grep --color=auto -iE "$*"
+}
+
 # Blue text
 blue() { tput setaf 4; echo $@; tput sgr0; }
 
