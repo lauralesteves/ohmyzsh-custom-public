@@ -116,6 +116,7 @@ Custom configurations for [oh-my-zsh](https://ohmyz.sh/). This folder lives at `
 | `tophistory` | Show 30 most used commands |
 | `man <cmd>` | Colorized man pages |
 | `aliases [keyword]` | Search aliases and functions by keyword |
+| `aliasg <terms...>` | Search loaded aliases (multiple terms are OR'd) |
 | `psg <term>` | Search processes by name |
 | `killport <port>` | Kill processes on a given port |
 | `hg <term>` | Search shell history |
