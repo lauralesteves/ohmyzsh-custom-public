@@ -166,3 +166,6 @@ make() {
     command make "$@"
   fi
 }
+
+# Switch AWS profile
+awsp() { export AWS_PROFILE="$1"; }
