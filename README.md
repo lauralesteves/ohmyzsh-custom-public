@@ -24,6 +24,7 @@ Custom configurations for [oh-my-zsh](https://ohmyz.sh/). This folder lives at `
 ├── options.zsh          # Shell options and exports
 ├── private.zsh          # Loader for private/ folder
 ├── theme.zsh            # Spaceship theme configuration
+├── ubuntu.zsh           # Linux-only aliases (pbcopy/pbpaste)
 ├── private/             # Private configs (gitignored)
 ├── plugins/
 │   ├── wakatime/                 (submodule)
@@ -237,6 +238,24 @@ Spaceship prompt theme configuration with custom sections and styling.
 | `SPACESHIP_CHAR_SYMBOL` | `⚡` |
 
 Custom sections and prompt order are defined in the private config.
+
+---
+
+### ubuntu.zsh
+
+Only loaded on Linux (`$OSTYPE` starting with `linux`), so macOS keeps its native commands. It brings the macOS clipboard commands to Ubuntu, so everything that pipes to `pbcopy` (like `shrug`, `lenny`, `wut` and `gbcn`) works the same on both systems.
+
+| Alias (function) | Command |
+|---|---|
+| `pbcopy` | `wl-copy` (Wayland), `xclip -selection clipboard` or `xsel --clipboard --input` (X11) |
+| `pbpaste` | `wl-paste --no-newline` (Wayland), `xclip -selection clipboard -o` or `xsel --clipboard --output` (X11) |
+
+The backend is picked when the shell starts: `wl-clipboard` when running under Wayland, then `xclip`, then `xsel`. They are defined as functions rather than plain aliases so that functions sourced earlier, like `gbcn` in `git.zsh`, also find them. Install one of the backends first:
+
+```bash
+sudo apt install wl-clipboard   # Wayland (default on recent Ubuntu)
+sudo apt install xclip          # X11
+```
 
 ---
 
