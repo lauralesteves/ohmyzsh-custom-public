@@ -18,6 +18,10 @@ if [[ "$OSTYPE" == linux* ]]; then
   elif (( $+commands[xsel] )); then
     pbcopy()  { xsel --clipboard --input "$@"; }
     pbpaste() { xsel --clipboard --output "$@"; }
+  else
+    # Headless (SSH, no display): OSC 52 asks the local terminal to copy, so
+    # pbcopy on the server lands in the Mac clipboard. There is no pbpaste here.
+    pbcopy()  { printf '\e]52;c;%s\a' "$(base64 | tr -d '\n')"; }
   fi
 
 fi
